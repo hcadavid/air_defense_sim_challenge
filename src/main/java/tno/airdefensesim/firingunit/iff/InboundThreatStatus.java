@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
  */
 
-package tno.airdefensesim;
+package tno.airdefensesim.firingunit.iff;
 
 /**
  *

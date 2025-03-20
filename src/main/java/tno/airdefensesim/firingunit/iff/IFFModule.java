@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package tno.airdefensesim;
+package tno.airdefensesim.firingunit.iff;
+
+import tno.airdefensesim.radar.RadarPacket;
 
 /**
  *
@@ -24,10 +26,10 @@ public class IFFModule {
      * 
      *  
      */
-    public static InboundThreatStatus checkStatus(String radarInput) throws InvalidRadarInputException{
+    public static InboundThreatStatus checkStatus(RadarPacket radarInput) throws InvalidRadarInputException{
         int[] input;
         
-        input = parseInput(radarInput);
+        input = parseInput(radarInput.getContent());
 
         int evenVals = 0;
         int oddVals = 0;

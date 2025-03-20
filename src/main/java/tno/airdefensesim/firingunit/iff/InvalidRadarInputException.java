@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Exception.java to edit this template
  */
 
-package tno.airdefensesim;
+package tno.airdefensesim.firingunit.iff;
 
 /**
  *

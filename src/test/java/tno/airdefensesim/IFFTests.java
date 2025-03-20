@@ -8,6 +8,11 @@ package tno.airdefensesim;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
+
+import tno.airdefensesim.firingunit.iff.IFFModule;
+import tno.airdefensesim.firingunit.iff.InboundThreatStatus;
+import tno.airdefensesim.firingunit.iff.InvalidRadarInputException;
+import tno.airdefensesim.radar.RadarPacket;
  
 /**
  *
@@ -26,19 +31,19 @@ public class IFFTests {
     public void testUnfriendlyIncome() throws InvalidRadarInputException{
         
         //Seven odds, four even
-        String unfriendlyRadarInput = "00000001;00000011;00000101;00000111;00001001;00001011;00000010;00000100;00001000;00010000;00100001";        
+        RadarPacket unfriendlyRadarInput = new RadarPacket("00000001;00000011;00000101;00000111;00001001;00001011;00000010;00000100;00001000;00010000;00100001",0);        
         assertEquals(IFFModule.checkStatus(unfriendlyRadarInput),InboundThreatStatus.FOE);
 
         //Six even, five odd
-        String friendlyRadarInput = "00000001;00010010;00000101;00000110;00001001;00001011;00000010;00000100;00001000;00010000;00100001";        
+        RadarPacket friendlyRadarInput = new RadarPacket("00000001;00010010;00000101;00000110;00001001;00001011;00000010;00000100;00001000;00010000;00100001",0);        
         assertEquals(IFFModule.checkStatus(friendlyRadarInput),InboundThreatStatus.FRIEND);
 
         //Six even, five odd
-        String nonConventionallyFormattedRadarInput = "0;0;0;0;0;0;0";        
+        RadarPacket nonConventionallyFormattedRadarInput = new RadarPacket("0;0;0;0;0;0;0",0);        
         assertEquals(IFFModule.checkStatus(nonConventionallyFormattedRadarInput),InboundThreatStatus.FRIEND);
 
         try {
-            String invalidRadarInput = "00000003;00010010;00000101;00000110;00001001;00001011;00000010;00000100;00001000;00010000;00100001";    
+            RadarPacket invalidRadarInput = new RadarPacket("00000003;00010010;00000101;00000110;00001001;00001011;00000010;00000100;00001000;00010000;00100001",0);    
             assertEquals(IFFModule.checkStatus(invalidRadarInput), InboundThreatStatus.FRIEND);            
             fail("InvalidRadarInputException expected when computing an invalid input");
         } catch (InvalidRadarInputException e) {

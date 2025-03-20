@@ -25,9 +25,11 @@ import tno.airdefensesim.radar.RadarPacket;
  */
 public class FiringUnit implements Subscriber<RadarPacket>{
 
+    int count = 0;
+
+    private Flow.Subscription subscription;
 
     private static Logger logger = LoggerFactory.getLogger(FiringUnit.class);    
-
 
     private EngagementOutcomeHandler engagementHandler = new EngagementOutcomeHandler(){
         @Override
@@ -40,21 +42,25 @@ public class FiringUnit implements Subscriber<RadarPacket>{
             System.out.println(String.format("[timestamp:%d] Unsuccessful engagement with radar packet {%s}",packet.getTime(),packet.getContent()));            
         }
 
-
-
     };
 
     @Override
     public void onNext(RadarPacket item) {
         try {
+            logger.debug(String.format("New RadarPacket received from the Radar."));
             handleIncomingPacket(item);
+            subscription.request(1);
+            logger.debug(String.format("Input processed, waiting for the next packet."));
         } catch (InvalidRadarInputException ex) {
+            ex.printStackTrace();
         }
     }
 
     @Override
     public void onSubscribe(Flow.Subscription subscription) {
         logger.info("Firing unit subscribed to the radar events");
+        this.subscription = subscription;
+        subscription.request(1);
     }
 
     @Override
@@ -64,10 +70,8 @@ public class FiringUnit implements Subscriber<RadarPacket>{
 
     @Override
     public void onComplete() {
-        logger.info("Subscription to the radar events terminated.");
+        logger.info("Subscription to the radar events terminated.");        
     }
-
-
 
     /**
      * 
@@ -75,7 +79,7 @@ public class FiringUnit implements Subscriber<RadarPacket>{
     private void handleIncomingPacket(RadarPacket packet) throws InvalidRadarInputException{
 
         if (IFFModule.checkStatus(packet) == InboundThreatStatus.FOE){
-            logger.info(String.format("Radar packet received with timestamp %d with threat detected : [%s]",packet.getTime(),packet.getContent()));
+            logger.debug(String.format("Radar packet received with timestamp %d with threat detected : [%s]",packet.getTime(),packet.getContent()));
             Random r=new Random(System.currentTimeMillis());
             int rand = r.nextInt(10);
             if (rand <= SimulationSettings.pkRatio*10){

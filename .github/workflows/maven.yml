@@ -1,7 +1,9 @@
 name: Java Release Workflow
+
 on:
   push:
     branches: [ main ]
+    
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
@@ -30,7 +32,7 @@ jobs:
           RELEASE_NOTES: "Automated release from ${GITHUB_REF}"
         with:
           generate_notes: true
-          tag_name: "v${GITHUB_REF##*/}"
+          tag_name: ${{ github.ref }}
 
       # Upload artifact to release
       - name: Upload Release Asset

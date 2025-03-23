@@ -51,4 +51,4 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: target/${project.artifactId}-${project.version}-jar-with-dependencies.jar
           asset_name: ${project.artifactId}-${project.version}-jar-with-dependencies.jar
-          asset_type: application/java-archive
+          asset_content_type: application/java-archive

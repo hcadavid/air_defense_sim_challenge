@@ -25,6 +25,7 @@ import tno.airdefensesim.radar.RadarPacket;
  */
 public class FiringUnit implements Subscriber<RadarPacket>{
 
+
     private Flow.Subscription subscription;
 
     private static Logger logger = LoggerFactory.getLogger(FiringUnit.class);    

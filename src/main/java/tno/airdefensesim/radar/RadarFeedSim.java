@@ -38,7 +38,7 @@ public class RadarFeedSim{
     /**
      * 
      */
-    public void feedData(){
+    public void feedData() throws RadarDataFeedException{
         try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
             String line;
             int timestamp = 0;
@@ -52,7 +52,7 @@ public class RadarFeedSim{
             logger.debug("Closing the subscription to the Radar");
             publisher.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RadarDataFeedException("Error while reading the given csv file:"+inputFile,e);
         } catch (InterruptedException ex) {
         }
     }

@@ -30,6 +30,7 @@ jobs:
           RELEASE_NOTES: "Automated release from ${GITHUB_REF}"
         with:
           generate_notes: true
+          tag_name: "v${GITHUB_REF##*/}"
 
       # Upload artifact to release
       - name: Upload Release Asset

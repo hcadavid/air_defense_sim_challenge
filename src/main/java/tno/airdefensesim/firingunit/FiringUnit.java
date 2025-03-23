@@ -34,12 +34,13 @@ public class FiringUnit implements Subscriber<RadarPacket>{
     private EngagementOutcomeHandler engagementHandler = new EngagementOutcomeHandler(){
         @Override
         public void handleSuccessfullEngagement(RadarPacket packet) {
-            System.out.println(String.format("[timestamp:%d] Successful engagement with radar packet {%s}",packet.getTime(),packet.getContent()));
+            logger.info(String.format("\t \uD83D\uDCA5 Successful engagement [timestamp:%d] with radar packet {%s}",packet.getTime(),packet.getContent()));
+            //System.out.println(String.format("[timestamp:%d] \uD83D\uDCA5 Successful engagement with radar packet {%s}",packet.getTime(),packet.getContent()));
         }
 
         @Override
         public void handleUnsuccessfullEngagement(RadarPacket packet) {
-            System.out.println(String.format("[timestamp:%d] Unsuccessful engagement with radar packet {%s}",packet.getTime(),packet.getContent()));            
+            logger.info(String.format("\t \u26A0 \u2708 Unsuccessful engagement [timestamp:%d] with radar packet {%s}",packet.getTime(),packet.getContent()));            
         }
 
     };
@@ -66,6 +67,7 @@ public class FiringUnit implements Subscriber<RadarPacket>{
     @Override
     public void onError(Throwable throwable) {
         logger.error("Subscription to the radar terminated due to an error "+throwable.getMessage());
+        throwable.printStackTrace();
     }
 
     @Override
@@ -79,7 +81,7 @@ public class FiringUnit implements Subscriber<RadarPacket>{
     private void handleIncomingPacket(RadarPacket packet) throws InvalidRadarInputException{
 
         if (IFFModule.checkStatus(packet) == InboundThreatStatus.FOE){
-            logger.debug(String.format("Radar packet received with timestamp %d with threat detected : [%s]",packet.getTime(),packet.getContent()));
+            logger.info(String.format("\uD83D\uDEA8 Radar packet received with timestamp %d with threat detected : [%s]",packet.getTime(),packet.getContent()));
             Random r=new Random(System.currentTimeMillis());
             int rand = r.nextInt(10);
             if (rand <= SimulationSettings.pkRatio*10){
@@ -91,10 +93,12 @@ public class FiringUnit implements Subscriber<RadarPacket>{
 
         }
         else{
-            logger.info(String.format("Radar packet received with timestamp %d but no threat detected : [%s]",packet.getTime(),packet.getContent()));
+            logger.info(String.format("\u2705 Radar packet received with timestamp %d but no threat detected : [%s]",packet.getTime(),packet.getContent()));
         }
 
     }
 
 
 }
+
+

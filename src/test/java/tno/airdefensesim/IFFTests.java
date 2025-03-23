@@ -28,7 +28,7 @@ public class IFFTests {
     //the decimal representation of the radar output.
     
     @Test
-    public void testUnfriendlyIncome() throws InvalidRadarInputException{
+    public void testConventionalIncome() throws InvalidRadarInputException{
         
         //Seven odds, four even
         RadarPacket unfriendlyRadarInput = new RadarPacket("00000001;00000011;00000101;00000111;00001001;00001011;00000010;00000100;00001000;00010000;00100001",0);        
@@ -38,13 +38,30 @@ public class IFFTests {
         RadarPacket friendlyRadarInput = new RadarPacket("00000001;00010010;00000101;00000110;00001001;00001011;00000010;00000100;00001000;00010000;00100001",0);        
         assertEquals(IFFModule.checkStatus(friendlyRadarInput),InboundThreatStatus.FRIEND);
 
-        //Six even, five odd
-        RadarPacket nonConventionallyFormattedRadarInput = new RadarPacket("0;0;0;0;0;0;0",0);        
-        assertEquals(IFFModule.checkStatus(nonConventionallyFormattedRadarInput),InboundThreatStatus.FRIEND);
+    }
+
+    @Test
+    public void testVariableValuesLenght() throws InvalidRadarInputException{
+        //Input values with different lenght
+        RadarPacket radarInputWithVariableValuesLength = new RadarPacket("0;00;000;0;00;0;0",0);        
+        assertEquals(IFFModule.checkStatus(radarInputWithVariableValuesLength),InboundThreatStatus.FRIEND);
+    }
+
+    @Test
+    public void testInvalidInputs() throws InvalidRadarInputException{
+
+        //Input values invalid separators
+        try {
+            RadarPacket radarInputWithInvalidSeparators = new RadarPacket("0,00;000,0;00;0;0",0);  
+            IFFModule.checkStatus(radarInputWithInvalidSeparators);
+            fail("InvalidRadarInputException expected when computing an invalid input");
+        } catch (InvalidRadarInputException e) {
+
+        }
 
         try {
-            RadarPacket invalidRadarInput = new RadarPacket("00000003;00010010;00000101;00000110;00001001;00001011;00000010;00000100;00001000;00010000;00100001",0);    
-            assertEquals(IFFModule.checkStatus(invalidRadarInput), InboundThreatStatus.FRIEND);            
+            RadarPacket nonBinaryInput = new RadarPacket("00000003;00010010;00000101;00000110;00001001;00001011;00000010;00000100;00001000;00010000;00100001",0);    
+            IFFModule.checkStatus(nonBinaryInput);
             fail("InvalidRadarInputException expected when computing an invalid input");
         } catch (InvalidRadarInputException e) {
 

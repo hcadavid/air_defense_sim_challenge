@@ -3,6 +3,8 @@ package tno.airdefensesim;
 import java.io.File;
 
 import tno.airdefensesim.firingunit.FiringUnit;
+import tno.airdefensesim.firingunit.SimulationEventsViewer;
+import tno.airdefensesim.firingunit.simeventviewers.WebLoggerEventViewer;
 import tno.airdefensesim.radar.RadarFeedSim;
 
 public class PatriotSimulation {
@@ -19,7 +21,10 @@ public class PatriotSimulation {
 
         RadarFeedSim radar = new RadarFeedSim(new File(radarDataPath));
 
-        FiringUnit firingUnit = new FiringUnit();
+        SimulationEventsViewer eventsViewer = new WebLoggerEventViewer();
+        //StdoutLoggerEventViewer simViewer = new StdoutLoggerEventViewer();
+
+        FiringUnit firingUnit = new FiringUnit(eventsViewer);
 
         radar.linkFiringUnit(firingUnit);
         

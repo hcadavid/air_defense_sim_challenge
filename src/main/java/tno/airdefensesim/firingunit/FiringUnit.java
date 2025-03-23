@@ -25,25 +25,16 @@ import tno.airdefensesim.radar.RadarPacket;
  */
 public class FiringUnit implements Subscriber<RadarPacket>{
 
-    int count = 0;
-
     private Flow.Subscription subscription;
 
     private static Logger logger = LoggerFactory.getLogger(FiringUnit.class);    
 
-    private EngagementOutcomeHandler engagementHandler = new EngagementOutcomeHandler(){
-        @Override
-        public void handleSuccessfullEngagement(RadarPacket packet) {
-            logger.info(String.format("\t \uD83D\uDCA5 Successful engagement [timestamp:%d] with radar packet {%s}",packet.getTime(),packet.getContent()));
-            //System.out.println(String.format("[timestamp:%d] \uD83D\uDCA5 Successful engagement with radar packet {%s}",packet.getTime(),packet.getContent()));
-        }
+    private SimulationEventsViewer simEventsViewer = null;
 
-        @Override
-        public void handleUnsuccessfullEngagement(RadarPacket packet) {
-            logger.info(String.format("\t \u26A0 \u2708 Unsuccessful engagement [timestamp:%d] with radar packet {%s}",packet.getTime(),packet.getContent()));            
-        }
+    public FiringUnit(SimulationEventsViewer viewer){
+        this.simEventsViewer = viewer;
+    }
 
-    };
 
     @Override
     public void onNext(RadarPacket item) {
@@ -72,7 +63,8 @@ public class FiringUnit implements Subscriber<RadarPacket>{
 
     @Override
     public void onComplete() {
-        logger.info("Subscription to the radar events terminated.");        
+        logger.info("Subscription to the radar events terminated.");    
+        simEventsViewer.handleSimulationEnd();    
     }
 
     /**
@@ -81,19 +73,20 @@ public class FiringUnit implements Subscriber<RadarPacket>{
     private void handleIncomingPacket(RadarPacket packet) throws InvalidRadarInputException{
 
         if (IFFModule.checkStatus(packet) == InboundThreatStatus.FOE){
-            logger.info(String.format("\uD83D\uDEA8 Radar packet received with timestamp %d with threat detected : [%s]",packet.getTime(),packet.getContent()));
+            simEventsViewer.handleIncomingRadarPacker(packet, true);
+
             Random r=new Random(System.currentTimeMillis());
             int rand = r.nextInt(10);
             if (rand <= SimulationSettings.pkRatio*10){
-                engagementHandler.handleSuccessfullEngagement(packet);
+                simEventsViewer.handleSuccessfullEngagement(packet);
             }
             else{
-                engagementHandler.handleUnsuccessfullEngagement(packet);
+                simEventsViewer.handleUnsuccessfullEngagement(packet);
             }
 
         }
         else{
-            logger.info(String.format("\u2705 Radar packet received with timestamp %d but no threat detected : [%s]",packet.getTime(),packet.getContent()));
+            simEventsViewer.handleIncomingRadarPacker(packet, false);            
         }
 
     }

@@ -11,7 +11,12 @@ import tno.airdefensesim.radar.RadarPacket;
  *
  * @author hcadavid
  */
-public interface EngagementOutcomeHandler {
+public interface SimulationEventsViewer {
+
+    /**
+     * 
+     */
+    public void handleIncomingRadarPacker(RadarPacket packet,boolean threat);
 
     /**
      * 
@@ -22,6 +27,11 @@ public interface EngagementOutcomeHandler {
      * 
      */
     public void handleUnsuccessfullEngagement(RadarPacket packet);
+
+    /**
+     * 
+     */
+    public void handleSimulationEnd();
 
 
 }

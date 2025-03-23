@@ -10,8 +10,14 @@ public class PatriotSimulation {
 
     public static void main(String[] args) {
         
+        if (args.length < 1) {
+            System.err.println("Usage: java PatriotSimulation <path_to_radar_data>");
+            System.exit(1);
+        }
 
-        RadarFeedSim radar = new RadarFeedSim(new File("/Users/hcadavid/HCADAVID/Applications/TNO-sim-arch/challenge/airdefensesim/sample_radar_feed/radar_data.csv"));
+        String radarDataPath = args[0];
+
+        RadarFeedSim radar = new RadarFeedSim(new File(radarDataPath));
 
         FiringUnit firingUnit = new FiringUnit();
 

@@ -70,8 +70,9 @@ mvn clean package assembly:single
 ```
 
 Show execution options
-```
-$ java -jar target/airdefensesim-0.1-jar-with-dependencies.jar --help
+```shell
+# java -jar target/airdefensesim-<version>-jar-with-dependencies.jar --help
+$ java -jar target/airdefensesim-0.0.1-jar-with-dependencies.jar --help
 
 Usage: <main class> [--webviewer] [-pk=<pk>] [-tstep=<tstep>] <filepath>
       <filepath>       Filepath
@@ -84,11 +85,12 @@ Usage: <main class> [--webviewer] [-pk=<pk>] [-tstep=<tstep>] <filepath>
 For example, to run a simulation using the standard settings, and the data available on the `sample_radar_feed` folder:
 
 ```shell
-$ java -jar target/airdefensesim-0.1-jar-with-dependencies.jar sample_radar_feed/radar_data.csv
+# java -jar target/airdefensesim-<version>-jar-with-dependencies.jar path/to/file/input_file.csv
+$ java -jar target/airdefensesim-0.0.1-jar-with-dependencies.jar sample_radar_feed/radar_data.csv
 ```
 
 To run a simulation using the web-viewer, the data available on the `sample_radar_feed` folder, and using 1ms time-steps:
 
 ```shell
-$ java -jar target/airdefensesim-0.1-jar-with-dependencies.jar sample_radar_feed/radar_data.csv  -tstep=1 --webviewer
+$ java -jar target/airdefensesim-0.0.1-jar-with-dependencies.jar sample_radar_feed/radar_data.csv  -tstep=1 --webviewer
 ```

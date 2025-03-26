@@ -33,10 +33,10 @@ Furthermore, having these two simulation elements decoupled could ease the integ
 
 For running the simulation:
 
- - JRE >= 9    
+ - JRE >= 11    
 
 For building the tool:
- - JDK >= 9 
+ - JDK >= 11 
  - Maven >= 3.9
 
 

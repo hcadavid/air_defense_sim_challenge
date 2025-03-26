@@ -14,13 +14,13 @@ import tno.airdefensesim.radar.RadarFeedSim;
 
 public class PatriotSimulation implements Runnable {
 
-    @Parameters(index = "0", description = "Filepath")
+    @Parameters(index = "0", description = "Path of the file with the radar input to be used in the simulation")
     private String filepath;
 
     @Option(names = "-pk", description = "Probabilty of kill (pk) ratio (default 0.8)", defaultValue="0.8")
     private Double pk;
 
-    @Option(names = "-tstep", description = "Time step (default 1000)", defaultValue="1000")
+    @Option(names = "-tstep", description = "Time step in milliseconds (default 1000)", defaultValue="1000")
     private Integer tstep;
 
     @Option(names = "--webviewer", description = "Use the web viewer insted of the stdout-based one")

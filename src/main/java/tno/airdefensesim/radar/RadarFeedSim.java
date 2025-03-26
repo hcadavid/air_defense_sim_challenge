@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package tno.airdefensesim.radar;
 
 import java.io.BufferedReader;

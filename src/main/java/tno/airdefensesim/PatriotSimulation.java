@@ -6,9 +6,9 @@ import picocli.CommandLine;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import tno.airdefensesim.firingunit.FiringUnit;
-import tno.airdefensesim.firingunit.SimulationEventsViewer;
-import tno.airdefensesim.firingunit.simeventhandlers.StdoutLoggerEventViewer;
-import tno.airdefensesim.firingunit.simeventviewers.WebLoggerEventViewer;
+import tno.airdefensesim.firingunit.SimulationStepsViewer;
+import tno.airdefensesim.firingunit.simeventviewers.StdoutLoggerSimStepsViewer;
+import tno.airdefensesim.firingunit.simeventviewers.WebLoggerSimStepsViewer;
 import tno.airdefensesim.radar.RadarDataFeedException;
 import tno.airdefensesim.radar.RadarFeedSim;
 
@@ -37,15 +37,15 @@ public class PatriotSimulation implements Runnable {
 
         RadarFeedSim radar = new RadarFeedSim(new File(radarDataPath));
 
-        SimulationEventsViewer eventsViewer;
+        SimulationStepsViewer eventsViewer;
 
         initializeSimulationSettings();
 
         if (webviewer){
-            eventsViewer = new WebLoggerEventViewer();
+            eventsViewer = new WebLoggerSimStepsViewer();
         }
         else{
-            eventsViewer = new StdoutLoggerEventViewer();
+            eventsViewer = new StdoutLoggerSimStepsViewer();
         }
 
 

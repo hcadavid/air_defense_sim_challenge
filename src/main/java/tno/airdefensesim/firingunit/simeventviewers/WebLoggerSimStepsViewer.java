@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
 package tno.airdefensesim.firingunit.simeventviewers;
 
@@ -19,7 +15,7 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import tno.airdefensesim.firingunit.FiringUnit;
-import tno.airdefensesim.firingunit.SimulationEventsViewer;
+import tno.airdefensesim.firingunit.SimulationStepsViewer;
 import tno.airdefensesim.radar.RadarPacket;
 
 /**
@@ -27,13 +23,13 @@ import tno.airdefensesim.radar.RadarPacket;
  * integrated into the simulation. 
  * 
  */
-public class WebLoggerEventViewer implements SimulationEventsViewer{
+public class WebLoggerSimStepsViewer implements SimulationStepsViewer{
 
     private static final Logger logger = LoggerFactory.getLogger(FiringUnit.class); 
 
     private LinkedList<String> simLogs = new LinkedList<>();   
 
-    public WebLoggerEventViewer(){
+    public WebLoggerSimStepsViewer(){
         HttpServer server=null;
 
         try {

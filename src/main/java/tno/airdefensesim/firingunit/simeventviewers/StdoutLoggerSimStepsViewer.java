@@ -3,20 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package tno.airdefensesim.firingunit.simeventhandlers;
+package tno.airdefensesim.firingunit.simeventviewers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import tno.airdefensesim.firingunit.FiringUnit;
-import tno.airdefensesim.firingunit.SimulationEventsViewer;
+import tno.airdefensesim.firingunit.SimulationStepsViewer;
 import tno.airdefensesim.radar.RadarPacket;
 
 /**
  *
  * @author hcadavid
  */
-public class StdoutLoggerEventViewer implements SimulationEventsViewer{
+public class StdoutLoggerSimStepsViewer implements SimulationStepsViewer{
 
     private static final Logger logger = LoggerFactory.getLogger(FiringUnit.class);    
 

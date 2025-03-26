@@ -6,25 +6,37 @@
 ## System Design assumptions
 
 
-There are multiple potential interpretations for this exercise depending on how the three elements, Radar, IFF, and Firing Unit work together to fulfill the system goal. For this particular implementation, the following assumptions based on the author's (limited) understanding of the subject, were made:
+There are multiple potential interpretations for this exercise depending on how the three elements, Radar, IFF, and Firing Unit work together to fulfill the system goal. For this particular implementation, the following assumptions were made:
 
-- The Radar and Firing unit are systems that operate independently (hence, concurrently). There is an underlying messaging middleware that allows the Firing unit to get access to the data 'packets' produced by the radar.
-- The IFF is a module embedded on the Firing unit to check whether a data 'packet' received by the radar is a threat, to act accordingly.
+- The Radar and Firing unit are systems that operate independently. Given this, an underlying messaging middleware that allows the Firing unit to get notified of new 'packets' emited by the radar is assumed.
+- The IFF is a module embedded and controlled by the Firing unit to check whether a data 'packet' received by the radar is a threat, to act accordingly.
 
 ## Design considerations
 
-Given the above, 
+- The simulation parameters (pk/probability of kill ratio, and time_step length) can be define when running the simulation. If these are not set, the values given on the excersie description are used.
 
-- To simulate the Radar (`RadarFeedSim`) and the Firing Unit (`FiringUnit`) as two elements that operate independently on an event-based fashion, they work as a Publisher and Subscriber of `RadarPacket` events, respectively. Although the exercise imples the use of global time-steps, and this implementation work as such, this design enables exploring aspects such as:
-  - Different transmission and processing speeds ('fire' operation that blocks others for a delta-t period of time), and alternative buffering strategies to handle these.
+- Given the assumptions described above, the Radar (`tno.airdefensesim.radar.RadarFeedSim`) and the Firing Unit (`tno.airdefensesim.firingunit.FiringUnit`) work as a Publisher and Subscriber of `RadarPacket` events, respectively. This way, in the simulation logic, the Radar and Firing Unit operate as two elements with operational independence, which communicate indirectly with each other in an event-based fashion. Although the exercise implies the use of synchronized global time-steps, with actions that are performed instantaneously (e.g., firing at a target), this design enables the inclusion of additional simulation elements and parameters such as:
 
-- Considering that a more sophisticated UI may be required in the future, the design decouples the execution of the simulation from its representation. To this end, the FiringUnit is implemented on top of the  `SimulationEventsViewer` interface. For illustration purposes, two implementations of this interface are provided: one for showing the events of the simulation through Logs on STDOUT, and another that enables the access to such events through a web browser (`http://localhost:8000/sim`).
-- The simulation parameters (pk/probability of kill ratio, and time_step length) can be define when running the simulation. By default, the values given on the excersie description can be used.
+  - Delta values of the time required by operations (or the steps required by them) such as 'fire'.
+  - Whether such operations are blocking ones (e.g., no further data can be processed during a firing operation).
+  - Strategies for handling the difference between data transmissions (radar packets) and data processing (e.g., data buffering) speed -considering the delta values-, and which packets to prioritize depeding on the overall system strategy.
+
+- It is expected that the simulation, over time, may require more advanced visualization approaches, e.g., when the radar packets and the firing actions can be graphically represented on a 2D or 3D space (or even have multiple visualizations). Given this, the design decouples the execution of the simulation from its representation. To this end, the FiringUnit, depends on an abstraction of such visualization mechanism, following the dependency inversion principle: the  `SimulationStepsViewer` interface. To illustrate how different UI can be used on the simulation, two implementations of this interface are provided: one for showing the simulation steps through Logs on STDOUT, and another that enables the visualization of such steps through a web browser (`http://localhost:8000/sim`).
+
+
+## Future
+
+Furthermore, having these two simulation elements decoupled could ease the integration of other simulated defense platforms.
+
 
 ## Requirements
 
 - Java >= 9 
 - Maven >= 3.9
+
+
+## Running the pre-built jar
+
 
 ## Setup
 

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
 package tno.airdefensesim.firingunit;
 
@@ -30,9 +26,9 @@ public class FiringUnit implements Subscriber<RadarPacket>{
 
     private static Logger logger = LoggerFactory.getLogger(FiringUnit.class);    
 
-    private SimulationEventsViewer simEventsViewer = null;
+    private SimulationStepsViewer simEventsViewer = null;
 
-    public FiringUnit(SimulationEventsViewer viewer){
+    public FiringUnit(SimulationStepsViewer viewer){
         this.simEventsViewer = viewer;
     }
 

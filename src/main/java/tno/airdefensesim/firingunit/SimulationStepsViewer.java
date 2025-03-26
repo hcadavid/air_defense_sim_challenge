@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 
 package tno.airdefensesim.firingunit;
 
@@ -11,7 +7,7 @@ import tno.airdefensesim.radar.RadarPacket;
  *
  * @author hcadavid
  */
-public interface SimulationEventsViewer {
+public interface SimulationStepsViewer {
 
     /**
      * 

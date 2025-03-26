@@ -5,7 +5,7 @@
 
   <groupId>tno.airdefensesim</groupId>
   <artifactId>airdefensesim</artifactId>
-  <version>0.1</version>
+  <version>0.0.1</version>
 
   <name>airdefensesim</name>
   <!-- FIXME change it to the project's website -->
@@ -73,6 +73,7 @@
             </descriptorRefs>
           </configuration>
         </plugin>
+        
     </plugins>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>

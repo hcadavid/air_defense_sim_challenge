@@ -31,14 +31,37 @@ Furthermore, having these two simulation elements decoupled could ease the integ
 
 ## Requirements
 
-- Java >= 9 
-- Maven >= 3.9
+For running the simulation:
+
+ - JRE >= 9    
+
+For building the tool:
+ - JDK >= 9 
+ - Maven >= 3.9
 
 
-## Running the pre-built jar
+## Running the tool using a pre-built jar
+
+Download and run [one of the released jars](https://github.com/hcadavid/air_defense_sim_challenge/releases). For example:
+
+```shell
+
+# Download the runnable jar
+$ wget https://github.com/hcadavid/air_defense_sim_challenge/releases/download/v0.0.1/target.airdefensesim-0.0.1-jar-with-dependencies.jar
+
+# Show the CLI options
+$ java -jar target.airdefensesim-0.0.1-jar-with-dependencies.jar --help
+
+# Run a simulation
+$ java -jar target.airdefensesim-0.0.1-jar-with-dependencies.jar path/to/the/data/radar_data.csv
+
+# Run a simulation with a custom time step length and the web viewer
+$ java -jar target.airdefensesim-0.0.1-jar-with-dependencies.jar path/to/the/data/radar_data.csv -tstep=1 --webviewer
+
+```
 
 
-## Setup
+## Build and setup from source code
 
 Running test cases and build
 ```

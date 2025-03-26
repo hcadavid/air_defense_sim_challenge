@@ -104,6 +104,7 @@ public class WebLoggerSimStepsViewer implements SimulationStepsViewer{
     public void handleIncomingRadarPacker(RadarPacket packet, boolean threat) {
         if (threat){
             simLogs.add(String.format("[timestamp:%d] Radar packet received, <b>THREAT DETECTED</b>,: [%s]",packet.getTime(),packet.getContent()));
+            simLogs.add(String.format("[timestamp:%d] <b>MISSILE LAUNCHED</b>",packet.getTime()));
         }
         else{
             simLogs.add(String.format("[timestamp:%d] Radar packet received, NO threat detected : [%s]",packet.getTime(),packet.getContent()));

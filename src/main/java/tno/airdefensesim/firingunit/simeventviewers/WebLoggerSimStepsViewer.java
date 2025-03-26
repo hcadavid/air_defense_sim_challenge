@@ -20,7 +20,8 @@ import tno.airdefensesim.radar.RadarPacket;
 
 /**
  * A simple local web-based viewer to demonstrate how alternative visualization mechanisms can easily be
- * integrated into the simulation. 
+ * integrated into the simulation. Only for reference. An actual web-based viewer should not work through
+ * status polling as this one.
  * 
  */
 public class WebLoggerSimStepsViewer implements SimulationStepsViewer{

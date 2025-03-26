@@ -41,7 +41,7 @@ public class WebLoggerSimStepsViewer implements SimulationStepsViewer{
             server.setExecutor(null); 
             server.start();        
 
-            System.out.println("Open a web-browser at http://localhost:8000/sim to see the simulation. Press [ENTER] to continue");
+            System.out.println("Open a web-browser at http://localhost:8000/sim to see the simulation. When ready, press [ENTER] to continue");
             Scanner scanner = new Scanner(System.in);
             scanner.nextLine();              
             scanner.close();

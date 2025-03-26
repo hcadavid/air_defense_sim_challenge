@@ -16,7 +16,7 @@ import tno.airdefensesim.radar.RadarPacket;
 
 
 /**
- *
+ * Representation of the Firing Unit for the Patriot air defense system.
  * @author hcadavid
  */
 public class FiringUnit implements Subscriber<RadarPacket>{
@@ -24,15 +24,20 @@ public class FiringUnit implements Subscriber<RadarPacket>{
 
     private Flow.Subscription subscription;
 
-    private static Logger logger = LoggerFactory.getLogger(FiringUnit.class);    
+    private static final Logger logger = LoggerFactory.getLogger(FiringUnit.class);    
 
     private SimulationStepsViewer simEventsViewer = null;
 
+    /**
+     * Requires a concrete viewer to show the simulation steps
+     */
     public FiringUnit(SimulationStepsViewer viewer){
         this.simEventsViewer = viewer;
     }
 
-
+    /**
+     * Handler of the RadarPackets recieved from the Radar the unit is suscribed to.
+     */
     @Override
     public void onNext(RadarPacket item) {
         try {

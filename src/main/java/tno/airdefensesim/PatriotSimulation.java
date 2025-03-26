@@ -39,6 +39,7 @@ public class PatriotSimulation implements Runnable {
 
         SimulationStepsViewer eventsViewer;
 
+        //Update the default sim settings based on the given CLI arguments
         initializeSimulationSettings();
 
         if (webviewer){
@@ -48,9 +49,10 @@ public class PatriotSimulation implements Runnable {
             eventsViewer = new StdoutLoggerSimStepsViewer();
         }
 
-
+        //Creating a firing unit with the selected viewer, and linking
+        //it as a subscriber of the simulated radar.
         FiringUnit firingUnit = new FiringUnit(eventsViewer);
-
+        
         radar.linkFiringUnit(firingUnit);
         
         try {
@@ -66,7 +68,7 @@ public class PatriotSimulation implements Runnable {
     }
 
 
-    public void initializeSimulationSettings(){
+    private void initializeSimulationSettings(){
         SimulationSettings.pkRatio = pk;
         SimulationSettings.timeStepInMs = tstep;
     }

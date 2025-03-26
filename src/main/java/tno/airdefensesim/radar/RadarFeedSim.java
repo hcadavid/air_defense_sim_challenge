@@ -13,7 +13,11 @@ import org.slf4j.LoggerFactory;
 import tno.airdefensesim.SimulationSettings;
 import tno.airdefensesim.firingunit.FiringUnit;
 
-
+/**
+ * Representation of a Radar for the Patriot air defense system. It will
+ * feed the 'radar-packets' given on a CSV file to any firing unit
+ * registered as a subscriber for it.
+ */
 public class RadarFeedSim{
 
     private static Logger logger = LoggerFactory.getLogger(RadarFeedSim.class);    

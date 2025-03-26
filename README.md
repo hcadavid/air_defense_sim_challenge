@@ -14,7 +14,7 @@ There are multiple potential interpretations for this exercise depending on how 
 
 ## Design considerations
 
-- Given the assumptions described above, the Radar (`tno.airdefensesim.radar.RadarFeedSim`) and the Firing Unit (`tno.airdefensesim.firingunit.FiringUnit`) work as a Publisher and Subscriber of `RadarPacket` events, respectively. This way, in the simulation logic, the Radar and Firing Unit operate as two operationally- independendent elements, which share data, indirectly, on an event-based fashion. Although the exercise implies the use of a global clock and synchronized actions that are performed instantaneously (e.g., firing at a target), this design enables the inclusion of additional simulation elements and parameters such as:
+- Given the assumptions described above, the Radar (`tno.airdefensesim.radar.RadarFeedSim`) and the Firing Unit (`tno.airdefensesim.firingunit.FiringUnit`) work as a Publisher and Subscriber of `RadarPacket` events, respectively. This way, in the simulation logic, the Radar and Firing Unit operate as two operationally- independendent elements, which share data, indirectly, on an event-based fashion. Although the exercise implies the use of a global clock and synchronized actions that are performed instantaneously (e.g., firing at a target takes 0s), this design enables the inclusion (in future releases) of additional simulation elements and parameters such as:
 
   - Delta values of the time required by each action (e.g., 'fire') or the steps required for it.
   - Whether such operations are blocking ones (e.g., no further data can be processed during a 'fire' operation).
